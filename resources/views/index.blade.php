@@ -7,18 +7,29 @@
     </div>
 </div>
 
-<form action="" method="POST" class="row">
+@if (session()->has('success'))
+    <div class="alert alert-success mt-3 row">
+        <strong>{{ session('success') }}</strong>
+    </div>
+@endif
+
+
+<form action="{{route('store')}}" method="POST" class="row">
+    @csrf
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
             <div class="form-group">
                 <strong>Tarea:</strong>
-                <input type="text" name="title" class="form-control" placeholder="Tarea" >
+                <input type="text" name="title" class="form-control" placeholder="Tarea" required>
+                @error('title')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
             <div class="form-group">
                 <strong>Descripción:</strong>
-                <textarea class="form-control" style="height:150px" name="description" placeholder="Descripción..."></textarea>
+                <textarea class="form-control" style="height:150px" name="description" placeholder="Descripción..." required></textarea>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
@@ -30,11 +41,10 @@
         <div class="col-xs-12 col-sm-12 col-md-6 mt-2">
             <div class="form-group">
                 <strong>Estado (inicial):</strong>
-                <select name="status" class="form-select" id="">
-                    <option value="">-- Elige el status --</option>
-                    <option value="Pendiente">Pendiente</option>
-                    <option value="En progreso">En progreso</option>
-                    <option value="Completada">Completada</option>
+                <select name="status" class="form-select" id="" required>
+                    <option value="pendiente">Pendiente</option>
+                    <option value="en progreso">En progreso</option>
+                    <option value="completada">Completada</option>
                 </select>
             </div>
         </div>

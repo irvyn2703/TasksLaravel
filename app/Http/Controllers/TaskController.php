@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\task;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -26,10 +27,25 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $request->validate([
+            'title' => 'required|min:2',
+            'description' => 'required',
+            'due_date' => 'nullable|date',
+            'status' => 'required|in:pendiente,en proceso,completada'
+        ]);
+
+        Task::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'due_date' => $request->due_date,
+            'status' => $request->status
+        ]);
+
+        return redirect()->route('index')->with('success', 'Tarea creada correctamente.');
     }
+
 
     /**
      * Display the specified resource.
