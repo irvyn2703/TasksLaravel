@@ -27,7 +27,7 @@
                 <strong>Estado (inicial):</strong>
                 <select name="status" class="form-select" id="" required>
                     <option value="pendiente">Pendiente</option>
-                    <option value="en progreso">En progreso</option>
+                    <option value="en proceso">En progreso</option>
                     <option value="completada">Completada</option>
                 </select>
             </div>

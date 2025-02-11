@@ -6,6 +6,8 @@ use App\Models\task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
+use function Pest\Laravel\get;
+
 class TaskController extends Controller
 {
     /**
@@ -13,7 +15,22 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $tasks = Task::latest()->get();
+        $groupedTasks = $tasks->groupBy('status');
+
+
+        $pendingTasks = $groupedTasks->get('pendiente', collect());
+        $inProgressTasks = $groupedTasks->get('en proceso', collect());
+        $completedTasks = $groupedTasks->get('completada', collect());
+
+        $tasksData = [
+            'pendingTasks' => $pendingTasks,
+            'inProgressTasks' => $inProgressTasks,
+            'completedTasks' => $completedTasks
+        ];
+
+
+        return view('index', compact('tasksData'));
     }
 
     /**
@@ -36,12 +53,14 @@ class TaskController extends Controller
             'status' => 'required|in:pendiente,en proceso,completada'
         ]);
 
+
         Task::create([
             'title' => $request->title,
             'description' => $request->description,
             'due_date' => $request->due_date,
             'status' => $request->status
         ]);
+
 
         return redirect()->route('index')->with('success', 'Tarea creada correctamente.');
     }
