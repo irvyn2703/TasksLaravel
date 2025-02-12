@@ -9,6 +9,7 @@ use Illuminate\View\Component;
 class FormTask extends Component
 {
     public $action;
+
     /**
      * Create a new component instance.
      */

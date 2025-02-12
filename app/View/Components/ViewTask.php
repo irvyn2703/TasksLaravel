@@ -9,8 +9,11 @@ use Illuminate\View\Component;
 class ViewTask extends Component
 {
     public $pendingTasks;
+
     public $inProgressTasks;
+
     public $completedTasks;
+
     /**
      * Create a new component instance.
      */
