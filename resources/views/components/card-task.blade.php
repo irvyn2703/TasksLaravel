@@ -2,7 +2,7 @@
     {{ $task->status === 'pendiente' ? 'bg-danger' : 
         ($task->status === 'en proceso' ? 'bg-warning' : 'bg-success') 
     }} 
-" style="width: 18rem;">
+">
     <div class="card-body">
       <h5 class="card-title ">{{$task->title}}</h5>
 
