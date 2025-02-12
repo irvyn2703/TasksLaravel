@@ -3,4 +3,4 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 
-Route::resource('/', TaskController::class);
+Route::resource('tasks', TaskController::class);

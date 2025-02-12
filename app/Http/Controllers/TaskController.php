@@ -62,7 +62,7 @@ class TaskController extends Controller
         ]);
 
 
-        return redirect()->route('index')->with('success', 'Tarea creada correctamente.');
+        return redirect()->route('tasks.index')->with('success', 'Tarea creada correctamente.');
     }
 
 
@@ -85,9 +85,17 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, task $task)
+    public function update(Request $request, Task $task): RedirectResponse
     {
-        //
+        $request->validate([
+            'status' => 'required|in:pendiente,en proceso,completada',
+        ]);
+
+        $task->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('tasks.index')->with('success', 'Tarea actualizada correctamente.');
     }
 
     /**
@@ -95,6 +103,8 @@ class TaskController extends Controller
      */
     public function destroy(task $task)
     {
-        //
+        $task->delete();
+
+        return redirect()->route('tasks.index')->with('success', 'Tarea eliminada correctamente.');
     }
 }

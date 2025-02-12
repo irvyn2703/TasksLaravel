@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<x-form-task :action="route('store')" />
+<x-form-task :action="route('tasks.store')" />
 
 <x-view-task :tasksData="$tasksData" />
 @endsection
